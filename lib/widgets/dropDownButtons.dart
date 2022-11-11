@@ -1,18 +1,23 @@
-import 'package:ayush_hospitals/widgets/DropDownType.dart';
-import 'package:ayush_hospitals/widgets/dropDownDistrict.dart';
-import 'package:ayush_hospitals/widgets/dropDownState.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'package:ayush_hospitals/widgets/DropDownType.dart';
+import 'package:ayush_hospitals/widgets/dropDownDistrict.dart';
+import 'package:ayush_hospitals/widgets/dropDownState.dart';
+
 class DropDownButtons extends StatefulWidget {
-  const DropDownButtons({super.key, required this.sortedMarkerSet});
-  final ValueChanged<List<LatLng>> sortedMarkerSet;
+  const DropDownButtons({
+    Key? key,
+    required this.sortedMarkerSet,
+  }) : super(key: key);
+  final ValueChanged<List<String>> sortedMarkerSet;
 
   @override
   State<DropDownButtons> createState() => _DropDownButtonsState();
 }
 
 class _DropDownButtonsState extends State<DropDownButtons> {
+  List<LatLng> sortedMarkerLatLng = [];
   String? state;
   String? district;
   String? type;
@@ -27,17 +32,19 @@ class _DropDownButtonsState extends State<DropDownButtons> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         AnimatedContainer(
-            height: expand ? 250 : 40,
-            duration: const Duration(milliseconds: 300),
+            height: expand ? 300 : 35,
+            duration: const Duration(milliseconds: 50),
             child: Container(
-              color: Color.fromARGB(255, 204, 0, 109).withOpacity(0.6),
+              color: Colors.black,
               child: Column(
                 children: [
                   InkWell(
                     onTap: () {
                       if (expand) {
                         if (state != null && district != null && type != null) {
-                          getSortedMarkers(state!, district!, type!);
+                          setState(() {
+                            widget.sortedMarkerSet([state!, district!, type!]);
+                          });
                         }
                         state = null;
                         district = null;
@@ -105,13 +112,9 @@ class _DropDownButtonsState extends State<DropDownButtons> {
   void expanding() async {
     buttons
         ? buttons = buttons ? false : true
-        : Future.delayed(const Duration(milliseconds: 300), () {
+        : Future.delayed(const Duration(milliseconds: 70), () {
             buttons = buttons ? false : true;
             setState(() {});
           });
-  }
-
-  List<LatLng> getSortedMarkers(String state, String district, String type) {
-    return [];
   }
 }

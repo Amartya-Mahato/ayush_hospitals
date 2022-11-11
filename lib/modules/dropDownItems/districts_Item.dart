@@ -4,7 +4,7 @@ class DistrictItem {
   DistrictItem();
 
   static List<String> andhra_PRADESH = [
-    "-NA-",
+    "Uknown",
     "ANANTHPUR",
     "CHITTOOR",
     "CUDDAPAH",
@@ -48,6 +48,7 @@ class DistrictItem {
   ];
 
   static List<String> assam = [
+    "Uknown",
     "BAKSA",
     "BARPETA",
     "BONGAIGAON",
@@ -231,7 +232,7 @@ class DistrictItem {
   ];
 
   static List<String> kARNATAKA = [
-    "-NA-",
+    "Uknown",
     "BAGALKOT",
     "BALLARY",
     "BANGALORE RURAL",
@@ -324,7 +325,7 @@ class DistrictItem {
   ];
 
   static List<String> mANIPUR = [
-    "-NA-",
+    "Uknown",
     "BISHNUPUR",
     "CHANDEL",
     "CHURACHANDPUR",
@@ -486,7 +487,7 @@ class DistrictItem {
   ];
 
   static List<String> tAMIL_NADU = [
-    "-NA-",
+    "Uknown",
     "Ariyalur",
     "CHENNAI",
     "COIMBATORE",

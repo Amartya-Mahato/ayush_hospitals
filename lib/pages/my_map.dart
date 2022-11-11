@@ -1,21 +1,23 @@
 import 'dart:async';
+import 'dart:io';
 
-import 'package:ayush_hospitals/connections/hos.dart';
+import 'package:ayush_hospitals/modules/sortedMarkers/sortedMarkers.dart';
 import 'package:ayush_hospitals/widgets/controlButtons.dart';
 import 'package:ayush_hospitals/widgets/dropDownButtons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:ayush_hospitals/modules/map/tomtom_routing_engine.dart';
 
 class MyMap extends StatefulWidget {
   const MyMap({super.key});
-
   @override
   State<MyMap> createState() => _MyMapState();
 }
 
 class _MyMapState extends State<MyMap> {
+  final ChromeSafariBrowser browser = ChromeSafariBrowser();
   final Completer<GoogleMapController> _controller = Completer();
   late final GoogleMapController googleMapController;
   LocationData? _locationData;
@@ -24,12 +26,12 @@ class _MyMapState extends State<MyMap> {
   Set<Marker> markers = {};
   LatLng? dirControllerLatLng;
   bool dirIsPressed = false;
-
   BitmapDescriptor sourceMarker = BitmapDescriptor.defaultMarker;
   BitmapDescriptor destinationMarker = BitmapDescriptor.defaultMarker;
 
   @override
   void initState() {
+    webViewInit();
     setCustomMarkes();
     currLocation();
     super.initState();
@@ -40,6 +42,13 @@ class _MyMapState extends State<MyMap> {
       polylineCoordinates = value;
       setState(() {});
     });
+  }
+
+  void webViewInit() async {
+    if (Platform.isAndroid) {
+      await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(false);
+    }
+    AndroidInAppWebViewController.getSafeBrowsingPrivacyPolicyUrl();
   }
 
 // To get the current Location and listen location changes
@@ -61,7 +70,7 @@ class _MyMapState extends State<MyMap> {
               .animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
             target: LatLng(_locationData!.latitude!, _locationData!.longitude!),
             zoom: 16,
-            tilt: 60,
+            tilt: 50,
           )));
           getPolyPoints(
               LatLng(_locationData!.latitude!, _locationData!.longitude!),
@@ -70,12 +79,11 @@ class _MyMapState extends State<MyMap> {
           polylineCoordinates = [];
         }
 
-        if (markers.isEmpty) {
-          getMarker(_locationData!, markers);
-        }
+        if (markers.isEmpty) {}
 
         markers.removeWhere((element) =>
             element.markerId == const MarkerId("current location"));
+
         markers.add(Marker(
           infoWindow: InfoWindow(
               title: "Me", snippet: "current location", onTap: () {}),
@@ -106,71 +114,85 @@ class _MyMapState extends State<MyMap> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      _locationData == null
-          ? const Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.purple,
-                color: Colors.green,
-              ),
-            )
-          : GoogleMap(
-              zoomControlsEnabled: false,
-              mapToolbarEnabled: false,
-              markers: markers,
-              // getMarker(_locationData!),
-              initialCameraPosition: _currCameraPosition(),
-              mapType: MapType.normal,
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-              },
-              polylines: {
-                  Polyline(
-                      polylineId: const PolylineId("default1"),
-                      color: Colors.purple,
-                      points: polylineCoordinates,
-                      width: 6,
-                      startCap: Cap.roundCap,
-                      jointType: JointType.round,
-                      endCap: Cap.roundCap)
-                }),
-      if (dirController)
-        DirControlButtons(
-          markerSet: markers,
-          locationData: _locationData,
-          dirControllerLatLng: dirControllerLatLng,
-          polylineChange: (value) {
-            polylineCoordinates = value;
-            setState(() {});
-          },
-          controllerToggle: (value) {
-            dirController = value;
-            polylineCoordinates = [];
-            googleMapController.animateCamera(CameraUpdate.newCameraPosition(
-                CameraPosition(target: dirControllerLatLng!, zoom: 10)));
-          },
-          markerChange: (value) {
-            markers = value;
-            markers.add(Marker(
-              infoWindow: InfoWindow(
-                  title: "Me", snippet: "current location", onTap: () {}),
-              icon: sourceMarker,
-              markerId: const MarkerId("current location"),
-              position:
-                  LatLng(_locationData!.latitude!, _locationData!.longitude!),
-            ));
-            setState(() {});
-          },
-          onDirctionButtonPressed: (value) {
-            dirIsPressed = value;
-            if (!dirIsPressed) polylineCoordinates = [];
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Ayush Hospitals",
+            style: TextStyle(
+              fontStyle: FontStyle.italic,
+            )),
+        elevation: 1,
+        backgroundColor: Colors.black,
+        titleTextStyle: const TextStyle(color: Colors.white, fontSize: 25),
+      ),
+      body: Stack(children: [
+        _locationData == null
+            ? const Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: Colors.white,
+                  color: Colors.black,
+                ),
+              )
+            : GoogleMap(
+                zoomControlsEnabled: false,
+                mapToolbarEnabled: false,
+                markers: markers,
+                // getMarker(_locationData!),
+                initialCameraPosition: _currCameraPosition(),
+                mapType: MapType.normal,
+                onMapCreated: (GoogleMapController controller) {
+                  _controller.complete(controller);
+                },
+                polylines: {
+                    Polyline(
+                        polylineId: const PolylineId("default1"),
+                        color: Colors.purple,
+                        points: polylineCoordinates,
+                        width: 6,
+                        startCap: Cap.roundCap,
+                        jointType: JointType.round,
+                        endCap: Cap.roundCap)
+                  }),
+        if (dirController)
+          DirControlButtons(
+            markerSet: markers,
+            locationData: _locationData,
+            dirControllerLatLng: dirControllerLatLng,
+            polylineChange: (value) {
+              polylineCoordinates = value;
+              setState(() {});
+            },
+            controllerToggle: (value) {
+              dirController = value;
+              polylineCoordinates = [];
+              googleMapController.animateCamera(CameraUpdate.newCameraPosition(
+                  CameraPosition(target: dirControllerLatLng!, zoom: 10)));
+            },
+            markerChange: (value) {
+              markers = value;
+              markers.add(Marker(
+                infoWindow: InfoWindow(
+                    title: "Me", snippet: "current location", onTap: () {}),
+                icon: sourceMarker,
+                markerId: const MarkerId("current location"),
+                position:
+                    LatLng(_locationData!.latitude!, _locationData!.longitude!),
+              ));
+              setState(() {});
+            },
+            onDirctionButtonPressed: (value) {
+              dirIsPressed = value;
+              if (!dirIsPressed) polylineCoordinates = [];
+              setState(() {});
+            },
+          ),
+        DropDownButtons(
+          sortedMarkerSet: (value) {
+            getMarker(value);
             setState(() {});
           },
         ),
-      DropDownButtons(
-        sortedMarkerSet: (value) {},
-      ),
-    ]);
+      ]),
+    );
   }
 
 // Current Camera Postion
@@ -180,45 +202,61 @@ class _MyMapState extends State<MyMap> {
         zoom: 14);
   }
 
-  Set<Marker> getMarker(LocationData locationData, Set<Marker> m) {
-    if (markers.isNotEmpty) {
-      return m;
-    } else {
-      initiaMarkersSet(HosList.getLatLngList(), locationData);
-      return markers;
+  void getMarker(List<String> stringList) async {
+    List<List<dynamic>> sortedData = [];
+    sortedData = await SortedMarkers.getSortedMarkers(
+        stringList[0], stringList[1], stringList[2]);
+
+    if (sortedData.isNotEmpty) {
+      googleMapController
+          .animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+        target: sortedData[0][0],
+        zoom: 9,
+      )));
     }
+    markers = markersSet(sortedData);
+    setState(() {});
   }
 
-  void initiaMarkersSet(List<LatLng> listLatLng, LocationData locationData) {
-    for (LatLng latLng in listLatLng) {
-      markers.add(Marker(
+  Set<Marker> markersSet(List<List<dynamic>> sortedData) {
+    Set<Marker> res = {};
+    for (List<dynamic> sorted in sortedData) {
+      LatLng sortedLatLng = sorted[0];
+      String title = sorted[2];
+      String hosid = sorted[1];
+
+      res.add(Marker(
           infoWindow: InfoWindow(
-              title: '"hospital name"',
-              snippet: "click to details",
-              onTap: () {}),
+              title: title,
+              snippet: "click to see details",
+              onTap: () async {
+                await browser.open(
+                    options: ChromeSafariBrowserClassOptions(
+                        ios: IOSSafariOptions(barCollapsingEnabled: true),
+                        android: AndroidChromeCustomTabsOptions(
+                            shareState: CustomTabsShareState.SHARE_STATE_OFF)),
+                    url: Uri.parse(
+                        'https://hospitals.pmjay.gov.in/Search/empnlWorkFlow.htm?actionFlag=ViewIndividualHosptlDtls&search=Y&applSearch=&hospInfoId=$hosid&appReadOnly=Y&draftMenu=&isRSBY=&invalidMenu='));
+                setState(() {});
+                await browser.close();
+              }),
           icon: destinationMarker,
-          markerId: MarkerId("HospitalId+$latLng"),
-          position: latLng,
+          markerId: MarkerId("$sorted[1]"),
+          position: sortedLatLng,
           onTap: (() {
             if (dirControllerLatLng == null) {
               dirController = dirController ? false : true;
             } else if (!dirController &&
-                (dirControllerLatLng != latLng ||
-                    dirControllerLatLng == latLng)) {
+                (dirControllerLatLng != sortedLatLng ||
+                    dirControllerLatLng == sortedLatLng)) {
               dirController = dirController ? false : true;
             }
-            dirControllerLatLng = latLng;
+            dirControllerLatLng = sortedLatLng;
             if (!dirController) polylineCoordinates = [];
             setState(() {});
           })));
     }
-    markers.add(Marker(
-      infoWindow:
-          InfoWindow(title: "Me", snippet: "current location", onTap: () {}),
-      icon: sourceMarker,
-      markerId: const MarkerId("current location"),
-      position: LatLng(locationData.latitude!, locationData.longitude!),
-    ));
+    return res;
   }
 
   @override
