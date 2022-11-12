@@ -27,7 +27,7 @@ class GItems {
           height: 100,
         )));
     gItems.add(GItem(
-        title: "About Us",
+        title: "About NHA",
         image: Image.asset(
           "lib/assets/images/about.png",
           height: 100,

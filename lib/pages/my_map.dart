@@ -14,12 +14,13 @@ class MyMap extends StatefulWidget {
   const MyMap({super.key});
   @override
   State<MyMap> createState() => _MyMapState();
+  
 }
 
 class _MyMapState extends State<MyMap> {
   final ChromeSafariBrowser browser = ChromeSafariBrowser();
-  final Completer<GoogleMapController> _controller = Completer();
-  late final GoogleMapController googleMapController;
+  Completer<GoogleMapController> _controller = Completer();
+  late GoogleMapController googleMapController;
   LocationData? _locationData;
   List<LatLng> polylineCoordinates = [];
   bool dirController = false;
@@ -35,6 +36,13 @@ class _MyMapState extends State<MyMap> {
     setCustomMarkes();
     currLocation();
     super.initState();
+  }
+
+    @override
+  void setState(fn) {
+    if(mounted) {
+      super.setState(fn);
+    }
   }
 
   void getPolyPoints(LatLng source, LatLng destination) {
@@ -78,8 +86,6 @@ class _MyMapState extends State<MyMap> {
         } else {
           polylineCoordinates = [];
         }
-
-        if (markers.isEmpty) {}
 
         markers.removeWhere((element) =>
             element.markerId == const MarkerId("current location"));
@@ -261,12 +267,12 @@ class _MyMapState extends State<MyMap> {
 
   @override
   void dispose() {
-    _disposeController();
+    disposeController();
     super.dispose();
   }
 
-  Future<void> _disposeController() async {
-    final GoogleMapController controller = await _controller.future;
-    controller.dispose();
+  Future<void> disposeController() async {
+    googleMapController = await _controller.future;
+    googleMapController.dispose();
   }
 }

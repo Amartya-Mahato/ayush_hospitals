@@ -1,4 +1,4 @@
-import 'package:ayush_hospitals/pages/about_us.dart';
+import 'package:ayush_hospitals/pages/about_nha.dart';
 import 'package:ayush_hospitals/pages/donation.dart';
 import 'package:ayush_hospitals/pages/faqs.dart';
 import 'package:ayush_hospitals/pages/loginPage.dart';
@@ -32,114 +32,82 @@ class _MyDrawerState extends State<MyDrawer> {
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(10), bottomRight: Radius.circular(10))),
       width: 250,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 8, left: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 30,
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          DrawerHeader(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset(
+                  "lib/assets/images/appLogo.png",
+                  height: 60,
+                  width: 60,
+                ),
+                Text(
+                  '''Welcome \n$name''',
+                  style: const TextStyle(fontSize: 20, color: Colors.white),
+                  textAlign: TextAlign.left,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  email,
+                  style: const TextStyle(fontSize: 12, color: Colors.white),
+                  textAlign: TextAlign.left,
+                ),
+              ],
             ),
-            Text(
-              '''Welcome \n$name''',
-              style: const TextStyle(fontSize: 20, color: Colors.white),
-              textAlign: TextAlign.left,
+            decoration: BoxDecoration(
+              color: Colors.teal.shade700,
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              email,
-              style: const TextStyle(fontSize: 12, color: Colors.white),
-              textAlign: TextAlign.left,
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            InkWell(
-              splashColor: Colors.transparent,
-              onTap: () {
+          ),
+          ListTile(
+              leading: Icon(Icons.local_hospital_rounded),
+              title: Text("Find Hospital", style: TextStyle(color: Colors.black54),),
+              onTap: (() {
                 Navigator.push(context,
                     MaterialPageRoute(builder: ((value) => const MyMap())));
-              },
-              child: const Text(
-                "Find Hospital",
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            InkWell(
-              splashColor: Colors.transparent,
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: ((value) => const Faqs())));
-              },
-              child: const Text(
-                "FAQs",
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            InkWell(
-              splashColor: Colors.transparent,
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: ((value) => const AboutUs())));
-              },
-              child: const Text(
-                "About Us",
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            InkWell(
-              splashColor: Colors.transparent,
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: ((value) => const Donation())));
-              },
-              child: const Text(
-                "Donation",
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ),
-            const Spacer(),
-            InkWell(
-                splashColor: Colors.transparent,
-                onTap: () async {
-                  SharedPreferences pref =
-                      await SharedPreferences.getInstance();
-                  await pref.remove('email');
-                  await pref.remove('name');
-                  await pref.clear();
+              })),
+          ListTile(
+            leading: Icon(Icons.question_answer_rounded),
+            title: Text("FAQs", style: TextStyle(color: Colors.black54),),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: ((value) => const Faqs())));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.question_mark_rounded),
+            title: Text("About NHA", style: TextStyle(color: Colors.black54),),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: ((value) => const AboutNHA())));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.handshake_rounded),
+            title: Text("Donation", style: TextStyle(color: Colors.black54),),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: ((value) => const Donation())));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.logout_rounded),
+            title: Text("Logout", style: TextStyle(color: Colors.black54),),
+            onTap: () async {
+              SharedPreferences pref = await SharedPreferences.getInstance();
+              await pref.remove('email');
+              await pref.remove('name');
+              await pref.clear();
 
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: ((value) => const LoginPage())));
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      "Logout",
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    ),
-                    Icon(
-                      Icons.logout_rounded,
-                      size: 30,
-                      color: Colors.white,
-                    )
-                  ],
-                ))
-          ],
-        ),
+              Navigator.push(context,
+                  MaterialPageRoute(builder: ((value) => const LoginPage())));
+            },
+          ),
+        ],
       ),
     );
   }

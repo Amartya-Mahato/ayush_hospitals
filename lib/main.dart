@@ -1,6 +1,5 @@
 import 'package:ayush_hospitals/Routes/routes.dart';
 import 'package:ayush_hospitals/pages/drawer.dart';
-import 'package:ayush_hospitals/pages/drawer1.dart';
 import 'package:ayush_hospitals/widgets/gridItems.dart';
 import 'package:ayush_hospitals/widgets/topInfo.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: const MyDrawer1(),
+      drawer: const MyDrawer(),
       appBar: AppBar(
         title: const Text("Ayush Hospitals",
             style: TextStyle(
