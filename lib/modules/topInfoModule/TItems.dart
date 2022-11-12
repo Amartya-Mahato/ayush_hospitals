@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class TItems {
@@ -19,17 +18,15 @@ class TopInfoItems extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 5),
       child: Container(
-        decoration: BoxDecoration(    
-          shape: BoxShape.rectangle,  
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: TItems.tItems[index].image,
-          ),
-           
+        decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: TItems.tItems[index].image,
+            ),
             border: Border.all(color: Colors.black, width: 4),
             // color: Colors.red,
-            borderRadius: const BorderRadius.all(Radius.circular(17))
-            ),
+            borderRadius: const BorderRadius.all(Radius.circular(17))),
       ),
     );
   }
