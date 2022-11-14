@@ -11,10 +11,6 @@ class tomtom_api {
     final tomUrl = Uri.parse(
         'https://api.tomtom.com/routing/1/calculateRoute/${destination.latitude},${destination.longitude}:${source.latitude},${source.longitude}/json?key=krbs9pbiN2E4jTvdCWtJbsfNuDTutS8L');
 
-//     final tomUrl = Uri.parse(
-//         'https://api.tomtom.com/routing/1/calculateRoute/${source.latitude},${source.longitude}:${destination.latitude},${destination.longitude}/json?instructionsType=text&language=en-US&vehicleHeading=90&sectionType=traffic&report=effectiveSettings&routeType=eco&traffic=true&avoid=unpavedRoads&travelMode=car&vehicleMaxSpeed=120&vehicleCommercial=false&vehicleEngineType=combustion&key=krbs9pbiN2E4jTvdCWtJbsfNuDTutS8L'
-// );
-
     var req = http.Request('GET', tomUrl);
     req.headers.addAll({'Accept': '*/*', 'User-Agent': 'Ayush_hospital'});
     var res = await req.send();

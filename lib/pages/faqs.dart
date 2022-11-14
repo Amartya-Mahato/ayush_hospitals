@@ -12,7 +12,7 @@ class _FaqsState extends State<Faqs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar( backgroundColor: Colors.teal, title: const Text("FAQs"), elevation: 0,),
+        appBar: AppBar( backgroundColor: Colors.teal, title: const Text("FAQs", style: TextStyle(fontStyle: FontStyle.italic),), elevation: 0,),
         body: SingleChildScrollView(
           child: ExpansionPanelList(
               elevation: 3,

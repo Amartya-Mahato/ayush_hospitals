@@ -8,14 +8,17 @@ class AboutNHA extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
-        title: const Text("About NHA"),
+        title: const Text(
+          "About NHA",
+          style: TextStyle(fontStyle: FontStyle.italic),
+        ),
         elevation: 0,
       ),
       body: SingleChildScrollView(
         physics: const ScrollPhysics(parent: BouncingScrollPhysics()),
         child: Container(
-          padding: EdgeInsets.all(5),
-          child: Text(
+          padding: const EdgeInsets.all(10),
+          child: const Text(
               '''National Health Authority (NHA) is the apex body responsible for implementing India’s flagship public health insurance/assurance scheme called “Ayushman Bharat Pradhan Mantri Jan Arogya Yojana” & has been entrusted with the role of designing strategy, building technological infrastructure and implementation of “National Digital Health Mission” to create a National Digital Health Eco-system.
 
 National Health Authority is the successor of the National Health Agency, which was functioning as a registered society since 23rd May, 2018. Pursuant to Cabinet decision for full functional autonomy, National Health Agency was reconstituted as the National Health Authority on 2nd January 2019, under Gazette Notification Registered No. DL –(N) 04/0007/2003-18.
@@ -24,9 +27,9 @@ NHA has been set-up to implement PM-JAY, as it is popularly known, at the nation
 
 To implement the scheme at the State level, State Health Agencies (SHAs) in the form of a society/trust have been set up by respective States. SHAs have full operational autonomy over the implementation of the scheme in the State including extending the coverage to non SECC beneficiaries.
 
-NHA is leading the implementation for national Digital Health Mission NDHM in coordination with different ministries/departments of the Government of India, State Governments, and private sector/civil society organizations.
+NHA is leading the implementation for national Digital Health Mission NDHM in coordination with different ministries/departments of the Government of India, State Governments, and private sector/civil society organizations.\n
 
-Functions of NHA under PM-JAY
+Functions of NHA under PM-JAY\n
 
     Formulation of various operational guidelines related to PM-JAY, model documents and contracts to ensure standardization and interoperability.
     Determine the central ceiling for premium (or maximum central contribution for trusts) per family per year to be provided to the States/UTs and review it from time to time, based on field evidence and actuarial analysis.
@@ -51,10 +54,10 @@ Functions of NHA under PM-JAY
     Generate evidence for the policy makers from schemes’ data and other research/evaluations so as to facilitate evidence-based decision making and policy formulation by the Government.
     Act as apex body for State Health Agencies that have been set up to implement PM-JAY.
     Take any decision related to the implementation of the scheme, recruitment rules and hiring of staff, disbursement of grant-in-aid to the States and issue relevant directions from time to time, as required.
-    And all other activities as assigned by the Government of India from time to time.
+    And all other activities as assigned by the Government of India from time to time.\n
 
 
-Key responsibilities of NHA under NDHM
+Key responsibilities of NHA under NDHM\n
 
     Administrative and technical leadership to the National Digital Health Mission
     Propose policy directions as required to the Mission Steering Group, Empowered Committee and MoHFW

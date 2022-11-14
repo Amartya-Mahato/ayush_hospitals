@@ -22,7 +22,7 @@ Future<void> main() async {
     ),
     home: login == null
         ? const LoginPage()
-        : const MyHomePage(title: 'Ayush Hospitals'),
+        : const MyHomePage(title: 'Ayushman Hospitals'),
   ));
 }
 
@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Colors.white,
       drawer: const MyDrawer(),
       appBar: AppBar(
-        title: const Text("Ayush Hospitals",
+        title: const Text("Ayushman Hospitals",
             style: TextStyle(
               fontStyle: FontStyle.italic,
             )),

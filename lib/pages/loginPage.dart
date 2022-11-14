@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:location/location.dart';
+
 import 'package:ayush_hospitals/main.dart';
 import 'package:ayush_hospitals/pages/createAccountPage.dart';
 import 'package:ayush_hospitals/utils/loginValidator.dart';
-import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -17,6 +19,22 @@ class _LoginPageState extends State<LoginPage> {
   String hintPass = 'Password';
   String nextButton = 'Next';
   bool bl = true;
+
+  @override
+  void initState() {
+    getAppPermission();
+    super.initState();
+  }
+
+  void getAppPermission() async {
+    Location location = Location();
+    PermissionStatus pStatus = await location.hasPermission();
+    if (pStatus == PermissionStatus.denied ||
+        pStatus == PermissionStatus.deniedForever) {
+      location.requestPermission();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -92,13 +110,15 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () async {
                       await validation();
                       if (bl) {
-                        Navigator.push(
+                        Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
                                 builder: (value) =>
-                                    const MyHomePage(title: 'Ayush Hospital')));
+                                    const MyHomePage(title: 'Ayush Hospital')),
+                            (route) => false);
+
+                        setState(() {});
                       }
-                      setState(() {});
                     },
                     child: Text("Next")),
               ),

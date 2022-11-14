@@ -64,47 +64,63 @@ class _MyDrawerState extends State<MyDrawer> {
             ),
           ),
           ListTile(
-              leading: Icon(Icons.local_hospital_rounded),
-              title: Text("Find Hospital", style: TextStyle(color: Colors.black54),),
+              leading: const Icon(Icons.local_hospital_rounded),
+              title: const Text(
+                "Find Hospital",
+                style: TextStyle(color: Colors.black54),
+              ),
               onTap: (() {
                 Navigator.push(context,
                     MaterialPageRoute(builder: ((value) => const MyMap())));
               })),
           ListTile(
-            leading: Icon(Icons.question_answer_rounded),
-            title: Text("FAQs", style: TextStyle(color: Colors.black54),),
+            leading: const Icon(Icons.question_answer_rounded),
+            title: const Text(
+              "FAQs",
+              style: TextStyle(color: Colors.black54),
+            ),
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: ((value) => const Faqs())));
             },
           ),
           ListTile(
-            leading: Icon(Icons.question_mark_rounded),
-            title: Text("About NHA", style: TextStyle(color: Colors.black54),),
+            leading: const Icon(Icons.question_mark_rounded),
+            title: const Text(
+              "About NHA",
+              style: TextStyle(color: Colors.black54),
+            ),
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: ((value) => const AboutNHA())));
             },
           ),
           ListTile(
-            leading: Icon(Icons.handshake_rounded),
-            title: Text("Donation", style: TextStyle(color: Colors.black54),),
+            leading: const Icon(Icons.handshake_rounded),
+            title: const Text(
+              "Donation",
+              style: TextStyle(color: Colors.black54),
+            ),
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: ((value) => const Donation())));
             },
           ),
           ListTile(
-            leading: Icon(Icons.logout_rounded),
-            title: Text("Logout", style: TextStyle(color: Colors.black54),),
+            leading: const Icon(Icons.logout_rounded),
+            title: const Text(
+              "Logout",
+              style: TextStyle(color: Colors.black54),
+            ),
             onTap: () async {
               SharedPreferences pref = await SharedPreferences.getInstance();
               await pref.remove('email');
               await pref.remove('name');
               await pref.clear();
-
-              Navigator.push(context,
-                  MaterialPageRoute(builder: ((value) => const LoginPage())));
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: ((value) => const LoginPage())),
+                  (route) => false);
             },
           ),
         ],

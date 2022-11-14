@@ -35,7 +35,7 @@ class _DropDownStateState extends State<DropDownState> {
                 Icons.arrow_drop_up_rounded,
                 color: Colors.white,
               ),
-              dropdownColor: Colors.black,
+              dropdownColor: Colors.grey,
               style: const TextStyle(color: Colors.white),
               hint: const Text(
                 "Select State",

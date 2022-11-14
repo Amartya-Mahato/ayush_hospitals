@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:ayush_hospitals/modules/sortedMarkers/sortedMarkers.dart';
 import 'package:ayush_hospitals/widgets/controlButtons.dart';
-import 'package:ayush_hospitals/widgets/dropDownButtons.dart';
+import 'package:ayush_hospitals/widgets/topExpandButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -14,7 +14,6 @@ class MyMap extends StatefulWidget {
   const MyMap({super.key});
   @override
   State<MyMap> createState() => _MyMapState();
-  
 }
 
 class _MyMapState extends State<MyMap> {
@@ -32,15 +31,16 @@ class _MyMapState extends State<MyMap> {
 
   @override
   void initState() {
+    
     webViewInit();
     setCustomMarkes();
     currLocation();
     super.initState();
   }
 
-    @override
+  @override
   void setState(fn) {
-    if(mounted) {
+    if (mounted) {
       super.setState(fn);
     }
   }
@@ -70,7 +70,6 @@ class _MyMapState extends State<MyMap> {
     _controller.future.then((value) {
       googleMapController = value;
       setCustomMarkes();
-
       location.onLocationChanged.listen((newloc) {
         _locationData = newloc;
         if (dirIsPressed) {
@@ -122,7 +121,7 @@ class _MyMapState extends State<MyMap> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Ayush Hospitals",
+        title: const Text("Ayushman Hospitals",
             style: TextStyle(
               fontStyle: FontStyle.italic,
             )),
@@ -191,12 +190,11 @@ class _MyMapState extends State<MyMap> {
               setState(() {});
             },
           ),
-        DropDownButtons(
-          sortedMarkerSet: (value) {
-            getMarker(value);
-            setState(() {});
-          },
-        ),
+          
+        TopExpandButtons(sortedMarkerSet: (value) {
+          getMarker(value);
+          setState(() {});
+        })
       ]),
     );
   }

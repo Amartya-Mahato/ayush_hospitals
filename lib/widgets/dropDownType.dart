@@ -32,7 +32,7 @@ class _DropDownTypeState extends State<DropDownType> {
                 height: 50,
                   child: Center(
                       child: Text(
-                    "Please Select District",
+                    "Please Select Above",
                     style: TextStyle(color: Colors.white),
                   )),
                 )
@@ -44,7 +44,7 @@ class _DropDownTypeState extends State<DropDownType> {
                     Icons.arrow_drop_up_rounded,
                     color: Colors.white,
                   ),
-                  dropdownColor: Colors.black,
+                  dropdownColor: Colors.grey,
                   style: const TextStyle(color: Colors.white),
                   hint: const Text(
                     "Select Type",
