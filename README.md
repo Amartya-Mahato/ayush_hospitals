@@ -62,4 +62,4 @@ it will show you an interface like this.
 
 ## Video Guide
 
-![Video interface]()
+https://user-images.githubusercontent.com/72689903/201970359-472fde9c-d83c-4c50-bc65-db2ecb70b3cc.mp4

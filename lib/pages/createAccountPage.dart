@@ -1,4 +1,4 @@
-import 'package:ayush_hospitals/utils/createAccount.dart';
+import 'package:ayush_hospitals/utils/createAccountValidator.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
@@ -197,12 +197,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       }
                       await validation();
                       if (hEmail) {
-                        Navigator.push(
+                        Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (value) => const MyHomePage(
-                                      title: 'Ayush Hospitals',
-                                    )));
+                                builder: (value) =>
+                                    const MyHomePage(title: 'Ayush Hospital')),
+                            (route) => false);
                       } else {
                         email = 'Already present';
                       }
