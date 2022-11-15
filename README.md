@@ -25,12 +25,19 @@ it will show you an interface like this.
   - Select your state.
   - Select your District.
   - Select your Type.
-    <img src="https://cdn.discordapp.com/attachments/959839099450171522/1042007128010924043/Screenshot_20221115-002928.jpg" width="250" height="500">
+ 
+  <img src="https://cdn.discordapp.com/attachments/959839099450171522/1042007128010924043/Screenshot_20221115-002928.jpg" width="250" height="500">
+  
 - Choose your hospital from among those markers.
+
   <img src="https://cdn.discordapp.com/attachments/959839099450171522/1042007084142690355/Screenshot_20221115-003154.jpg" width="250" height="500">
-  - click on the marker once to see the name and click again on the name to see the webview of the details of that particulr hospital.
+  
+  - Click on the marker once to see the name and click again on the name to see the webview of the details of that particulr hospital.
+  
     <img src="https://cdn.discordapp.com/attachments/959839099450171522/1042007083731652639/Screenshot_20221115-003235_Chrome.jpg" width="250" height="500">
-  - after clicking once on the marker a toolbar should pop up, giving you the ability to start finding the optimal route from your current location to hospital, tap on cross button to cancle the tracking.
+    
+  - After clicking once on the marker a toolbar should pop up, giving you the ability to start finding the optimal route from your current location to hospital, tap on cross button to cancle the tracking.
+  
     <img src="https://cdn.discordapp.com/attachments/959839099450171522/1042007083928793108/Screenshot_20221115-003319.jpg" width="250" height="500">
 
 ### 2. Tap on `FAQs` to get frequently asked questions
@@ -51,7 +58,7 @@ it will show you an interface like this.
 
 ### 6. Tap on `Logout` to logout the app
 
-<img src="https://cdn.discordapp.com/attachments/959839099450171522/1042016630340861983/Screenshot_20221115-003427.jpg" width="250" height="500">
+<img src="https://cdn.discordapp.com/attachments/959839099450171522/1042016630340861983/Screenshot_20221115-003427.jpg" width="250" height="50">
 
 ## Video Guide
 
