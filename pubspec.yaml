@@ -45,6 +45,7 @@ dependencies:
   flutter_inappwebview: ^5.7.1
   carousel_slider: ^4.1.1
   shared_preferences: ^2.0.15
+  mysql_client: ^0.0.27
 
 dev_dependencies:
   flutter_test:
